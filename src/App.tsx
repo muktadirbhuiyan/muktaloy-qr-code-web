@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Menu, Share2 } from 'lucide-react';
 import muktaloyImage from './images/MuktaloyImage.jpg';
+import Preloader from './Preloader';
+import apartmentDescription from './apartmentDescription.md';
+import ReactMarkdown from 'react-markdown';
 
 function App() {
-  // State to track the visibility of the dropdown menu
-  const [menuOpen, setMenuOpen] = useState(false);
+  // State to track loading status
+  const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false); // For the dropdown menu
+  const [content, setContent] = useState<string>('');
 
-  // Function to toggle the dropdown menu
+  // Toggle menu function
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  // Load markdown content when the component mounts
+  useEffect(() => {
+    fetch(apartmentDescription)
+      .then((response) => response.text())
+      .then((text) => setContent(text));
+  }, []);
+
+  // Simulate loading (adjust timing or remove this if you load real data)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds for preloader
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show Preloader while loading
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -78,15 +101,18 @@ function App() {
                   <h1 className="text-2xl font-bold text-orange-500">MUKTALOY</h1>
                   <p className="text-1xl font-bold text-blue-500">Apartment Building</p>
                 </div>
-                {/* <p className="text-gray-600">Single/Double Room Flat ready for rent. Attached Kitchen+Bathroom+Velcony</p> */}
-                <p className="text-gray-600">একক/ডাবল রুম ফ্ল্যাট ভাড়ার জন্য প্রস্তুত। সংযুক্ত রান্নাঘর+বাথরুম+বারান্দা। ২৪ ঘন্টা সিসি টিভি সিকিউরিটি সহ, খোলামেলা পরিবেশে বসবাস করতে চাইলে যোগাযোগ করুন।</p>
+                <div className="app">
+                  <p className="text-base">
+                    <ReactMarkdown>{content}</ReactMarkdown>
+                  </p>
+                </div>
 
                 {/* Location Information */}
                 <div className="flex items-start space-x-2">
                   <MapPin className="mt-1 h-5 w-5 text-orange-500" />
                   <div>
                     <p className="font-semibold">Location</p>
-                    <p className="text-sm">576/1, Borpa, Rupshi-1464, Rupganj, Narayanganj</p>
+                    <p className="text-sm">576/1, Borpa (Notun Rasta), Rupshi, Rupganj, Narayanganj</p>
                   </div>
                 </div>
 
