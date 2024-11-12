@@ -4,6 +4,7 @@ import muktaloyImage from './images/MuktaloyImage.jpg';
 import Preloader from './Preloader';
 import apartmentDescription from './apartmentDescription.md';
 import ReactMarkdown from 'react-markdown';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   // State to track loading status
@@ -164,6 +165,7 @@ function App() {
           </div>
         </div>
       </div>
+      <SpeedInsights />
     </div>
   );
 }
