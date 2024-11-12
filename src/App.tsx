@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Menu, Share2 } from 'lucide-react';
-import muktaloyImage from './images/MuktaloyImage.jpg';
+import muktaloyHeader from './images/MuktaloyImage.webp';
 import Preloader from './Preloader';
 import apartmentDescription from './apartmentDescription.md';
 import ReactMarkdown from 'react-markdown';
@@ -24,7 +24,7 @@ function App() {
 
   // Simulate loading (adjust timing or remove this if you load real data)
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds for preloader
+    const timer = setTimeout(() => setLoading(false), 1000); // 1 seconds for preloader
     return () => clearTimeout(timer);
   }, []);
 
@@ -46,9 +46,8 @@ function App() {
             {/* Header Section: Contains the main image and burger menu */}
             <div className="relative">
               <img
-                src={muktaloyImage}
+                src={muktaloyHeader}
                 alt="Apartment Building"
-                loading="lazy"
                 className="w-full h-60 object-cover rounded-t-3xl" // Full-width header image with a fixed height and rounded top corners
               />
 
